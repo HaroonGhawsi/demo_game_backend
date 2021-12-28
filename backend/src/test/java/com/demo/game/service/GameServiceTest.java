@@ -10,6 +10,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -56,6 +57,37 @@ class GameServiceTest {
     //Assert
     assertEquals(gameResult, GameResult.WON);
   }
+
+  @Test
+  void test_paper_loses_to_scissors() {
+
+    //action
+    GameResult gameResult = service.processGameResult(GameOption.PAPER, GameOption.SCISSOR);
+
+    //Assert
+    assertEquals(gameResult, GameResult.LOST);
+  }
+
+  @Test
+  void test_paper_draws_to_paper() {
+
+    //action
+    GameResult gameResult = service.processGameResult(GameOption.PAPER, GameOption.PAPER);
+
+    //Assert
+    assertEquals(gameResult, GameResult.valueOf("DRAW"));
+  }
+
+  @Test
+  void test_paper_wins_over_stone() {
+
+    //action
+    GameResult gameResult = service.processGameResult(GameOption.PAPER, GameOption.STONE);
+
+    //Assert
+    assertEquals(gameResult, GameResult.WON);
+  }
+
 
   @Test
   void testGenerateOptionForSystem() {
