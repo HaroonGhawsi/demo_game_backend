@@ -39,40 +39,13 @@ public class GameService {
       throw new IllegalGameOptionException("Opponent Choice should not be null");
     }
 
-    if (userOption == GameOption.STONE && opponentChoice == GameOption.STONE) {
-      return GameResponseDto.from(opponentChoice, GameResult.DRAW);
-    }
-
-    if (userOption == GameOption.STONE && opponentChoice == GameOption.SCISSOR) {
-      return GameResponseDto.from(opponentChoice, GameResult.WON);
-    }
-
-    if (userOption == GameOption.STONE && opponentChoice == GameOption.PAPER) {
-      return GameResponseDto.from(opponentChoice, GameResult.LOST);
-    }
-
-    if (userOption == GameOption.SCISSOR && opponentChoice == GameOption.STONE) {
-      return GameResponseDto.from(opponentChoice, GameResult.LOST);
-    }
-
-    if (userOption == GameOption.SCISSOR && opponentChoice == GameOption.SCISSOR) {
-      return GameResponseDto.from(opponentChoice, GameResult.DRAW);
-    }
-
-    if (userOption == GameOption.SCISSOR && opponentChoice == GameOption.PAPER) {
-      return GameResponseDto.from(opponentChoice, GameResult.WON);
-    }
-
-    if (userOption == GameOption.PAPER && opponentChoice == GameOption.STONE) {
-      return GameResponseDto.from(opponentChoice, GameResult.WON);
-    }
-
-    if (userOption == GameOption.PAPER && opponentChoice == GameOption.SCISSOR) {
-      return GameResponseDto.from(opponentChoice, GameResult.LOST);
-    }
-
-    if (userOption == GameOption.PAPER && opponentChoice == GameOption.PAPER) {
-      return GameResponseDto.from(opponentChoice, GameResult.DRAW);
+    switch (userOption) {
+      case STONE:
+        return StoneGameEngine.checkStoneOptionWinner(opponentChoice);
+      case PAPER:
+        return PaperGameEngine.checkPaperGameOptionWinner(opponentChoice);
+      case SCISSOR:
+        return ScissorGameEngine.checkScissorGameOptionWinner(opponentChoice);
     }
 
     return GameResponseDto.from(opponentChoice, GameResult.WON);
