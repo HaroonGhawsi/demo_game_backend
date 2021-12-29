@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.demo.game.dao.GameOption;
 import com.demo.game.dao.GameResult;
+import com.demo.game.dto.GameResponseDto;
 import com.demo.game.repository.GameRepository;
 
 @Service
@@ -24,21 +25,33 @@ public class GameService {
     return repository.findAll();
   }
 
-  public GameResult processGameResult(GameOption userOption, GameOption systemOption) {
+  public GameResponseDto processGameResult(GameOption userOption) {
 
     LOGGER.info("Processing the final Result of the Game...");
 
-    if (userOption == null || systemOption == null) {
-      throw new IllegalArgumentException();
+    if (userOption == null) {
+      throw new IllegalGameOptionException("User Choice should not be null");
     }
-    if (userOption.equals(systemOption)) {
-      return GameResult.LOST;
+
+    GameOption opponentChoice = this.getOpponentChoice();
+
+    if (opponentChoice == null) {
+      throw new IllegalGameOptionException("Opponent Choice should not be null");
     }
-    return GameResult.WON;
+
+    switch (userOption) {
+      case STONE:
+        return StoneGameEngine.checkStoneOptionWinner(opponentChoice);
+      case PAPER:
+        return PaperGameEngine.checkPaperGameOptionWinner(opponentChoice);
+      case SCISSOR:
+        return ScissorGameEngine.checkScissorGameOptionWinner(opponentChoice);
+    }
+
+    return GameResponseDto.from(opponentChoice, GameResult.WON);
   }
 
-
-  public GameOption getOpponentChoice() {
+  protected GameOption getOpponentChoice() {
     LOGGER.info("System started selecting Game Options");
     return repository.generateOptionForSystem();
   }
