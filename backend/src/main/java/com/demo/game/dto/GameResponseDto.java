@@ -1,4 +1,4 @@
-package com.demo.game.rest;
+package com.demo.game.dto;
 
 import java.io.Serializable;
 

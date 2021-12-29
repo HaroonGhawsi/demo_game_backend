@@ -1,5 +1,5 @@
 package com.demo.game.dao;
 
 public enum GameResult {
-  WON, LOST
+  WON, LOST, DRAW
 }
