@@ -6,7 +6,6 @@ import com.demo.game.dao.GameOption;
 import com.demo.game.dao.GameResult;
 import com.demo.game.dto.GameResponseDto;
 
-@Component
 public class ScissorGameEngine {
 
   public static GameResponseDto checkScissorGameOptionWinner(GameOption opponentChoice) {

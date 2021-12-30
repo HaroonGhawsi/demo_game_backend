@@ -6,7 +6,6 @@ import com.demo.game.dao.GameOption;
 import com.demo.game.dao.GameResult;
 import com.demo.game.dto.GameResponseDto;
 
-@Component
 public class StoneGameEngine {
 
   public static GameResponseDto checkStoneOptionWinner(GameOption opponentChoice) {
